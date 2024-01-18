@@ -16,13 +16,13 @@ const GroupComponent = () => {
   const [selectedItems, setSelectedItems] = useState([]);
  console.log(phone)
 const [groupId, setGroupId] = useState(null);
-  const [error, setError] = useState(null);
+  // const [error, setError] = useState(null);
   const [isTaskModalOpen, setTaskModalOpen] = useState(false);
-  const [assignedItem, setAssignedItem] = useState(''); // Changed the state name
-  const [quantity, setQuantity] = useState(0);
-  const [unit, setUnit] = useState(0);
-  const [count, setCount] = useState(0);
-  const [dueDate, setDueDate] = useState(null);
+  // const [assignedItem, setAssignedItem] = useState(''); // Changed the state name
+  // const [quantity, setQuantity] = useState(0);
+  // const [unit, setUnit] = useState(0);
+  // const [count, setCount] = useState(0);
+  // const [dueDate, setDueDate] = useState(null);
   const [asigned_to, setasignedto] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5; // Set the number of items to display per page
@@ -31,7 +31,7 @@ const [groupId, setGroupId] = useState(null);
   const [currentAssignedTo, setCurrentAssignedTo] = useState('');
   const [taskModalHeader, setTaskModalHeader] = useState('Assign Task');
   const [isMyTaskModalOpen, setMyTaskModalOpen] = useState(false);
-  const [isTaskCompleted, setTaskCompleted] = useState(/* initial value */);
+  // const [isTaskCompleted, setTaskCompleted] = useState(/* initial value */);
   const [tasks, setTasks] = useState([]);
   const [taskForm, setTaskForm] = useState({
     assignedItem: '',
@@ -315,7 +315,7 @@ const [groupId, setGroupId] = useState(null);
   const handleTaskSubmit = async (assignedTo) => {
     try {
       // Convert assignedTo to string
-      const assignedToString = assignedTo.toString();
+      // const assignedToString = assignedTo.toString();
     // console.log("agagga:",asigned_to)
       // Iterate through each task form and submit the task
       // console.log("assigner tooooo:", assignedToString);
