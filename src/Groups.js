@@ -388,13 +388,15 @@ const [error, setError] = useState(null);
   useEffect(() => {
     fetchUserName();
     handleFetchGroupId();
+    
   }, [fetchUserName, handleFetchGroupId, phone]);// Fetch user name when 'phone' changes
 
-useEffect(() => {
-  if (groupId !== null) {
-    handleSubmit();
-  }
-}, [groupId]);
+  useEffect(() => {
+    if (groupId !== null) {
+      handleSubmit();
+    }
+  }, [groupId, handleSubmit]);
+  
   const handleAddMember = () => {
     setAddMemberModalOpen(true);
   };
