@@ -102,7 +102,7 @@ const [error, setError] = useState(null);
         });
 
         // Assuming fetchUserNametask is defined somewhere
-        // fetchUserNametask(firstTask.assigned_by);
+         fetchUserNametask(firstTask.assigned_by);
       }
     } catch (error) {
       console.error('Error fetching tasks:', error);
@@ -160,7 +160,7 @@ const [error, setError] = useState(null);
   
   
 
-  const handleFetchGroupId = async () => {
+  const handleFetchGroupId = useCallback(async () => {
     try {
       // Make a GET request to the API endpoint with the group name
       const response = await axios.get(`http://13.201.44.172/groups/${groupName}`);
@@ -174,10 +174,8 @@ const [error, setError] = useState(null);
       console.error('Error fetching group id:', error);
       setGroupId(null);
       setError(error.response?.data?.message || 'An error occurred');
-     
     }
-    handleSubmit(groupId);
-  };
+  }, [groupName]);
   
   const handleSubmittask = async () => {
     try {
@@ -373,24 +371,24 @@ const [error, setError] = useState(null);
       },
     ]);
   };
-const fetchUserName = async () => {
-  try {
-    const response = await axios.get('http://13.201.44.172/user_groups/name', {
-      params: {
-        phone: phone,
-      },
-    });
+  const fetchUserName = useCallback(async () => {
+    try {
+      const response = await axios.get('http://13.201.44.172/user_groups/name', {
+        params: {
+          phone: phone,
+        },
+      });
 
-    setUserName(response.data.result);
-  } catch (error) {
-    console.error('Error fetching user name:', error);
-  }
-};
+      setUserName(response.data.result);
+    } catch (error) {
+      console.error('Error fetching user name:', error);
+    }
+  }, [phone]);
 
-useEffect(() => {
-  fetchUserName();
-  handleFetchGroupId();
-}, [phone]); // Fetch user name when 'phone' changes
+  useEffect(() => {
+    fetchUserName();
+    handleFetchGroupId();
+  }, [fetchUserName, handleFetchGroupId, phone]);// Fetch user name when 'phone' changes
 
 useEffect(() => {
   if (groupId !== null) {

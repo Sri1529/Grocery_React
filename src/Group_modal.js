@@ -62,7 +62,7 @@ const GroupModal = ({ isOpen, onClose, onSubmit, phone }) => {
       const groupId = groupResult.group_id;
 
       // Insert data into the 'user_groups' table
-      const userGroupResponse = await fetch('http://localhost:13.201.44.172/user_groups', {
+      const userGroupResponse = await fetch('http://13.201.44.172/user_groups', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
