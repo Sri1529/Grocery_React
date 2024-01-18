@@ -14,7 +14,7 @@ const GroupComponent = () => {
   const [isAddMemberModalOpen, setAddMemberModalOpen] = useState(false);
   const [userName, setUserName] = useState('');
   const [selectedItems, setSelectedItems] = useState([]);
- console.log(phone)
+ //console.log(phone)
 const [groupId, setGroupId] = useState(null);
 
   // eslint-disable-next-line no-unused-vars
@@ -55,7 +55,9 @@ const [error, setError] = useState(null);
       dueDate: null, 
     },
   ]);
-  
+  const handleCloseModal = useCallback(() => {
+    setModalOpen(false);
+  }, []); // Empty dependency array
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
@@ -215,27 +217,20 @@ const [error, setError] = useState(null);
   
   
 
-  const handleSubmit = async () => {
-    // console.log("group id:", groupId);
-  
+  const handleSubmit = useCallback(async () => {
     try {
       const data = {
         groupId: groupId,
         items: selectedItems,
       };
   
-      // console.log('Data to be sent:', data);
-  
-      // Make a POST request to insert items into the group_groceries table
       await axios.post('http://13.201.44.172/group_groceries', data);
   
-      // Close the modal or perform other actions after successful insertion
       handleCloseModal();
     } catch (error) {
       console.error('Error submitting items:', error);
-      // Handle errors as needed
     }
-  };
+  }, [groupId, selectedItems, handleCloseModal]);
   
   const handleAssignTask = async (assignedTo) => {
     try {
@@ -397,6 +392,7 @@ const [error, setError] = useState(null);
     }
   }, [groupId, handleSubmit]);
   
+  
   const handleAddMember = () => {
     setAddMemberModalOpen(true);
   };
@@ -471,10 +467,7 @@ const [error, setError] = useState(null);
     setModalOpen(true);
   };
 
-  const handleCloseModal = () => {
-    setModalOpen(false);
-  };
-
+ 
 
   
   const handleCheckboxChange = (itemName) => {
@@ -495,7 +488,7 @@ const [error, setError] = useState(null);
   
 
   // Fetch group members based on the group name
-  const fetchGroupMembers = async () => {
+  const fetchGroupMembers = useCallback(async () => {
     try {
       const response = await axios.get(`http://13.201.44.172/user_groups?group_name=${groupName}`);
       const members = response.data.result.map((member) => member.name);
@@ -503,27 +496,30 @@ const [error, setError] = useState(null);
     } catch (error) {
       console.error('Error fetching group members:', error);
     }
-  };
+  }, [groupName]); // Only include the dependencies needed for the function
 
 
-
+  useEffect(() => {
+    // Call the fetchGroupMembers function here
+    fetchGroupMembers();
+  }, [fetchGroupMembers]);
   
   // Fetch items from the API when the modal is open
   useEffect(() => {
     if (isModalOpen) {
       axios.get('http://13.201.44.172/mastergrocery')
         .then(response => {
-          // console.log(response.data);
           setItemsFromAPI(response.data.result);
         })
         .catch(error => {
           console.error('Error fetching data from the API:', error);
         });
     }
-
-    // Fetch group members when the component mounts
+  
+    // Fetch group members when the component mounts or when isModalOpen changes
     fetchGroupMembers();
-  }, [isModalOpen, groupName]);
+  }, [isModalOpen, groupName, fetchGroupMembers]);
+  
 
 //   console.log('quantity:', quantity);
 // console.log('unit:', unit);
