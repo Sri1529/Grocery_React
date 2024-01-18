@@ -16,7 +16,10 @@ const GroupComponent = () => {
   const [selectedItems, setSelectedItems] = useState([]);
  console.log(phone)
 const [groupId, setGroupId] = useState(null);
-   const [error, setError] = useState(null);
+
+  // eslint-disable-next-line no-unused-vars
+const [error, setError] = useState(null);
+
   const [isTaskModalOpen, setTaskModalOpen] = useState(false);
   // const [assignedItem, setAssignedItem] = useState(''); // Changed the state name
   // const [quantity, setQuantity] = useState(0);
