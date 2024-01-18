@@ -15,7 +15,7 @@ const GroupList = ({ onGroupAdded,phone }) => {
             'Authorization': 'Bearer YOUR_ACCESS_TOKEN',
           },
           params: {
-            phone: phone, // Assuming 'phone' is the variable containing the phone number
+            phone: phone,
           },
         });
 
@@ -30,7 +30,7 @@ const GroupList = ({ onGroupAdded,phone }) => {
     };
 
     fetchData();
-  }, [onGroupAdded]);
+  }, [onGroupAdded, phone]);
 
   const handleGroupClick = (groupName) => {
     // Navigate to the GroupComponent when a group button is clicked
