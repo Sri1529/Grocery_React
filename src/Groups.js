@@ -82,13 +82,13 @@ const [error, setError] = useState(null);
   };
 
 
-  const fetchTasks = async () => {
+  const fetchTasks = useCallback(async () => {
     try {
       // Assuming you have the 'phone' value available in your component state or props
-      console.log("phonee:",phone)
+      console.log("phonee:", phone);
   
       const response = await axios.get(`http://13.201.44.172/tasks/${groupId}/${phone}`);
-      console.log("tasks",response)
+      console.log("tasks", response);
       setTasks(response.data.tasks);
   
       if (response.data.tasks.length > 0) {
@@ -107,7 +107,8 @@ const [error, setError] = useState(null);
     } catch (error) {
       console.error('Error fetching tasks:', error);
     }
-  };
+  }, [groupId, phone, fetchUserNametask]); // Include dependencies used inside fetchTasks
+  
   
 
   const fetchUserNametask = async (assignedBy) => {
