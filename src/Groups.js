@@ -32,6 +32,7 @@ const [error, setError] = useState(null);
   // const itemsFromAPI = []; // Replace with your actual data
   const totalPages = Math.ceil(itemsFromAPI.length / itemsPerPage);
   const [currentAssignedTo, setCurrentAssignedTo] = useState('');
+  // eslint-disable-next-line no-unused-vars
   const [taskModalHeader, setTaskModalHeader] = useState('Assign Task');
   const [isMyTaskModalOpen, setMyTaskModalOpen] = useState(false);
   // const [isTaskCompleted, setTaskCompleted] = useState(/* initial value */);

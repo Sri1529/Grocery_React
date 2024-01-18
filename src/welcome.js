@@ -10,6 +10,7 @@ const Dash = () => {
   const location = useLocation();
   const phoneWithoutCountryCode = location.state?.phone || '';
   const [isModalOpen, setModalOpen] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const [groups, setGroups] = useState([]);
   const phone = phoneWithoutCountryCode.replace(/^\+91/, '');
   const openModal = () => {
