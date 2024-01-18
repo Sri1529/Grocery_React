@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useCallback  } from 'react';
 import axios from 'axios';
 import './GroupComponent.css';
 import { useParams, useLocation } from 'react-router-dom';
@@ -82,32 +82,32 @@ const [error, setError] = useState(null);
   };
 
 
-  const fetchTasks = async () => {
+  const fetchTasks = useCallback(async () => {
     try {
-      // Assuming you have the 'phone' value available in your component state or props
-      console.log("phonee:",phone)
-  
+      console.log("phonee:", phone);
+
       const response = await axios.get(`http://13.201.44.172/tasks/${groupId}/${phone}`);
-      console.log("tasks",response)
+      console.log("tasks", response);
       setTasks(response.data.tasks);
-  
+
       if (response.data.tasks.length > 0) {
         const firstTask = response.data.tasks[0];
         setTaskForm({
           assignedItem: firstTask.name || '',
           quantity: firstTask.quantity || 0,
-          unit: firstTask.unit || '', // Update with the correct property name
+          unit: firstTask.unit || '',
           count: firstTask.count || 0,
           assigned_by: firstTask.assigned_by || '',
           dueDate: firstTask.due_date || null,
         });
-  
-        fetchUserNametask(firstTask.assigned_by);
+
+        // Assuming fetchUserNametask is defined somewhere
+        // fetchUserNametask(firstTask.assigned_by);
       }
     } catch (error) {
       console.error('Error fetching tasks:', error);
     }
-  };
+  }, [groupId, phone]);
   
 
   const fetchUserNametask = async (assignedBy) => {
@@ -131,7 +131,7 @@ const [error, setError] = useState(null);
     if (groupId !== null) {
       fetchTasks();
     }
-  }, [groupId, phone]);
+  }, [fetchTasks, groupId, phone])
 
   
   const handleFindPhone = async (name) => {
