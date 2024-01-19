@@ -88,7 +88,7 @@ const [error, setError] = useState(null);
     try {
       console.log("phonee:", phone);
 
-      const response = await axios.get(`http://13.201.44.172/tasks/${groupId}/${phone}`);
+      const response = await axios.get(`https://13.201.44.172/tasks/${groupId}/${phone}`);
       console.log("tasks", response);
       setTasks(response.data.tasks);
 
@@ -114,7 +114,7 @@ const [error, setError] = useState(null);
 
   const fetchUserNametask = async (assignedBy) => {
     try {
-      const response = await axios.get(`http://13.201.44.172/users/name?phone=${assignedBy}`);
+      const response = await axios.get(`https://13.201.44.172/users/name?phone=${assignedBy}`);
       const userName = response.data.result;
       console.log('User Name:', userName);
 
@@ -139,7 +139,7 @@ const [error, setError] = useState(null);
   const handleFindPhone = async (name) => {
     try {
       console.log("assigned too phonee", name);
-      const response = await axios.get(`http://13.201.44.172/users/phone?name=${name}`);
+      const response = await axios.get(`https://13.201.44.172/users/phone?name=${name}`);
       
       // Check if response.data.result exists before setting the state
       if (response.data.result) {
@@ -165,7 +165,7 @@ const [error, setError] = useState(null);
   const handleFetchGroupId = useCallback(async () => {
     try {
       // Make a GET request to the API endpoint with the group name
-      const response = await axios.get(`http://13.201.44.172/groups/${groupName}`);
+      const response = await axios.get(`https://13.201.44.172/groups/${groupName}`);
   
       // Update state with the retrieved group id
       setGroupId(response.data.groupId);
@@ -189,7 +189,7 @@ const [error, setError] = useState(null);
       console.log("Tasks to Update:", tasksToUpdate);
 
       // Send a request to update the completed_on column in the database
-      const response = await axios.put('http://13.201.44.172/update-completed-on', { completedTasks: tasksToUpdate });
+      const response = await axios.put('https://13.201.44.172/update-completed-on', { completedTasks: tasksToUpdate });
 
       // Optionally, you can fetch the updated tasks from the server after submission
       // await fetchTasks(); // Update this function based on your API endpoint
@@ -224,7 +224,7 @@ const [error, setError] = useState(null);
         items: selectedItems,
       };
   
-      await axios.post('http://13.201.44.172/group_groceries', data);
+      await axios.post('https://13.201.44.172/group_groceries', data);
   
       handleCloseModal();
     } catch (error) {
@@ -235,7 +235,7 @@ const [error, setError] = useState(null);
   const handleAssignTask = async (assignedTo) => {
     try {
       // Fetch group groceries names based on the group ID
-      const response = await axios.get(`http://13.201.44.172/group_groceries_names`, {
+      const response = await axios.get(`https://13.201.44.172/group_groceries_names`, {
         params: {
           groupId: groupId, // Replace with the actual integer value
         }
@@ -294,7 +294,7 @@ const [error, setError] = useState(null);
       // console.log('Tasks submitted successfully!');
   
       // Set the items from the API and open the task modal
-      const response = await axios.get(`http://13.201.44.172/group_groceries_names`, {
+      const response = await axios.get(`https://13.201.44.172/group_groceries_names`, {
         params: {
           groupId: groupId,
         }
@@ -335,7 +335,7 @@ const [error, setError] = useState(null);
         console.log('Task Data:', data);
   
         // Make a POST request to insert the task into the tasks table
-        await axios.post('http://13.201.44.172/tasks', data);
+        await axios.post('https://13.201.44.172/tasks', data);
       }
   
       // Close the modal after submitting all tasks
@@ -368,7 +368,7 @@ const [error, setError] = useState(null);
   };
   const fetchUserName = useCallback(async () => {
     try {
-      const response = await axios.get('http://13.201.44.172/user_groups/name', {
+      const response = await axios.get('https://13.201.44.172/user_groups/name', {
         params: {
           phone: phone,
         },
@@ -415,7 +415,7 @@ const [error, setError] = useState(null);
     try {
       if (newMember.trim() !== '') {
         // Make a request to search for the user by phone number
-        const userResponse = await axios.get(`http://13.201.44.172/users?phone=${newMember}`);
+        const userResponse = await axios.get(`https://13.201.44.172/users?phone=${newMember}`);
         const user = userResponse.data.result[0];
 
         console.log('User Response:', userResponse.data); // Log the user response
@@ -424,19 +424,19 @@ const [error, setError] = useState(null);
           // If the user is found, add their name to the group members
 
           // Make a request to get the user_id from the users table
-          const userIdResponse = await axios.get(`http://13.201.44.172/users/id?phone=${newMember}`);
+          const userIdResponse = await axios.get(`https://13.201.44.172/users/id?phone=${newMember}`);
           const userId = userIdResponse.data.result;
 
            console.log('User ID Response:', userIdResponse.data); // Log the user ID response
 
           // Make a request to get the group_id from the groups table
-          const groupResponse = await axios.get(`http://13.201.44.172/get_group_id?groupName=${groupName}`);
+          const groupResponse = await axios.get(`https://13.201.44.172/get_group_id?groupName=${groupName}`);
           const groupId = groupResponse.data.result;
 
            console.log('Group ID Response:', groupResponse.data); // Log the group ID response
 
           // Insert user_id, group_id, name, phone, and group_name into the user_groups table
-          await axios.post('http://13.201.44.172/user_groups', {
+          await axios.post('https://13.201.44.172/user_groups', {
             user_id: userId,
              group_id: groupId,
             name: user.name,
@@ -490,7 +490,7 @@ const [error, setError] = useState(null);
   // Fetch group members based on the group name
   const fetchGroupMembers = useCallback(async () => {
     try {
-      const response = await axios.get(`http://13.201.44.172/user_groups?group_name=${groupName}`);
+      const response = await axios.get(`https://13.201.44.172/user_groups?group_name=${groupName}`);
       const members = response.data.result.map((member) => member.name);
       setGroupMembers(members);
     } catch (error) {
@@ -507,7 +507,7 @@ const [error, setError] = useState(null);
   // Fetch items from the API when the modal is open
   useEffect(() => {
     if (isModalOpen) {
-      axios.get('http://13.201.44.172/mastergrocery')
+      axios.get('https://13.201.44.172/mastergrocery')
         .then(response => {
           setItemsFromAPI(response.data.result);
         })

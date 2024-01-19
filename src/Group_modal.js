@@ -8,7 +8,7 @@ const GroupModal = ({ isOpen, onClose, onSubmit, phone }) => {
   useEffect(() => {
     const fetchUserDetails = async () => {
       try {
-        const response = await fetch(`http://13.201.44.172/user_details?phone=${phone}`);
+        const response = await fetch(`https://13.201.44.172/user_details?phone=${phone}`);
         const result = await response.json();
 
         if (response.ok) {
@@ -35,7 +35,7 @@ const GroupModal = ({ isOpen, onClose, onSubmit, phone }) => {
       }
 
       // Insert data into the 'groups' table
-      const groupResponse = await fetch('http://13.201.44.172/groups', {
+      const groupResponse = await fetch('https://13.201.44.172/groups', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -62,7 +62,7 @@ const GroupModal = ({ isOpen, onClose, onSubmit, phone }) => {
       const groupId = groupResult.group_id;
 
       // Insert data into the 'user_groups' table
-      const userGroupResponse = await fetch('http://13.201.44.172/user_groups', {
+      const userGroupResponse = await fetch('https://13.201.44.172/user_groups', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
