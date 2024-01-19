@@ -45,7 +45,7 @@ const Dash = () => {
 
   const fetchGroups = async () => {
     try {
-      const response = await axios.get('https://13.201.44.172/groups', {
+      const response = await axios.get('http://13.201.44.172/groups', {
         headers: {
           'Authorization': 'Bearer YOUR_ACCESS_TOKEN',
         },
